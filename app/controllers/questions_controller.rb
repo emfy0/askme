@@ -1,15 +1,25 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: %i[update show destroy edit]
-  def create 
-    question = Question.create(question_params)
+  def create
+    @question = Question.new(question_params)
 
-    redirect_to question_path(question), notice: 'Новый вопрос создан!'
+    if @question.save
+      redirect_to question_path(@question), notice: 'Новый вопрос создан!'
+    else
+      flash.now[:alert] = 'Вопрос оформлен неверно!'
+
+      render :new
+    end
   end
 
   def update
-    @question.update(question_params)
+    if @question.update(question_params)
+      redirect_to question_path(@question), notice: 'Сохранили вопрос!'
+    else
+      flash.now[:alert] = 'Вопрос оформлен неверно!'
 
-    redirect_to question_path(@question), notice: 'Сохранили вопрос!'
+      render :update
+    end
   end
 
   def destroy
@@ -18,8 +28,7 @@ class QuestionsController < ApplicationController
     redirect_to questions_path, notice: 'Вопрос удалён!'
   end
 
-  def show
-  end
+  def show; end
 
   def index
     @question = Question.new
@@ -30,8 +39,7 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
-  def edit
-  end
+  def edit; end
 
   private
 
