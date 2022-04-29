@@ -1,5 +1,6 @@
 <div class="mb-sm">
-  <%= simple_format(question.body) %>
+  <%# <%= simple_format(question.body) %>
+  <%= safe_join(question.body.split("\n"), "<br />".html_safe) %>
 </div>
 
 <div class="text-sm question-footer">
