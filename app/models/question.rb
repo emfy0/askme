@@ -1,5 +1,5 @@
 class Question < ApplicationRecord
-  validates :body, { presence: { message: 'введите текст вопроса!' },
+  validates :body, { presence: true,
                      length: { maximum: 280,
                                too_long: '%{count} символов допустимо!' } }
 end

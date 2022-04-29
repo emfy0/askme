@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_29_180004) do
+ActiveRecord::Schema.define(version: 2022_04_29_202220) do
 
   create_table "questions", force: :cascade do |t|
     t.text "body"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2022_04_29_180004) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
     t.string "header_color", default: "#370617"
+    t.index ["nickname"], name: "index_users_on_nickname", unique: true
   end
 
 end

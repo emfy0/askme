@@ -1,14 +1,13 @@
 class User < ApplicationRecord
   has_secure_password
 
-  validates :email, :nickname, :name, presence: { message: 'не может быть пустым!' }
+  validates :email, :nickname, :name, presence: true
 
-  validates :nickname, { uniqueness: { message: '%{value} уже занят!' },
-                         format: { with: /\A[a-zA-Z_1-9]+\z/,
-                                   message: "может содержать только латинские буквы, цифры, и знак '_'!" },
-                         length: { maximum: 40,
-                                   message: 'максимальная длинна - 40 символов!' } }
+  validates :nickname, { uniqueness: {},
+                         format: { with: /\A[a-zA-Z_1-9]+\z/ },
+                         length: { maximum: 40 } }
 
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP,
-                              message: 'неверный формат!' }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  validates :header_color, { format: { with: /\A#(?:\h{3}){1,2}\z/ } }
 end
