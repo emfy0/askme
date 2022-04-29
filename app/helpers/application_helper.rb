@@ -9,4 +9,12 @@ module ApplicationHelper
       many
     end
   end
+
+  def header_color(user)
+    if user.present?
+      user.header_color
+    else
+      '#370617'
+    end
+  end
 end
