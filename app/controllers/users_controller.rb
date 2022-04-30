@@ -34,19 +34,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def change_gui
-    gui_params = params.permit(:header_color)
-
-    @user = User.find(params[:id])
-
-    @user.update(gui_params)
-
-    render :edit
-  end
-
   private
 
   def user_params
-    params.require(:user).permit(:name, :nickname, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :nickname, :email, :password, :password_confirmation, :header_color)
   end
 end

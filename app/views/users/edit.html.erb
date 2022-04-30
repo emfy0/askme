@@ -1,6 +1,6 @@
 <div class="container">
   <h2 class="title">Настройки внешнего вида</h2>
-   <%= form_with url: change_gui_user_path(@user), method: "patch", data: { turbo: false } do |form| %>
+   <%= form_with model: @user, method: :patch, data: { turbo: false } do |form| %>
     <p class="mt-lg"><%= form.label :header_color, "Цвет header-а" %></p>
     <p class="mt"><%= form.color_field :header_color %></p>
     <p><%= form.submit "Сохранить", class: "button button-main mt-lg" %></p>
