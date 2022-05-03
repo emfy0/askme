@@ -22,12 +22,12 @@ ActiveRecord::Schema.define(version: 2022_04_29_202220) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "nickname", null: false
+    t.string "nickname"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
-    t.string "header_color", default: "#370617"
+    t.string "header_color", default: "#370617", null: false
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
   end
 
