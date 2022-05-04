@@ -1,4 +1,5 @@
-<div class="mb-sm">
+<% opacity = question.hidden ? 'opacity50' : '' %>
+<div class="mb-sm <%= opacity %>">
   <%= simple_format h (question.body) %>
 </div>
 
@@ -10,10 +11,13 @@
     <div>
       <% edit_icon = (question.answer.present? ? 'pencil' : 'reply') %>
 
+      <%= button_to fa_icon(hide_button(question)[:fa_icon_class]), hide_question_path(question), method: :patch, title: hide_button(question)[:title], class: 'mr-sm' %>
+
       <%= link_to fa_icon(edit_icon), edit_question_path(question),
         title: 'Изменить вопрос', class: 'mr-sm' %>
+
       <%= button_to fa_icon('trash-o'), question_path(question),
         method: :delete, title: 'Удалить вопрос' %>
     </div>
   <% end %>
-  </div>
+</div>

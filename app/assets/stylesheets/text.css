@@ -34,3 +34,7 @@ a, button {
 .text-red {
   color: #DC2F02;
 }
+
+.opacity50 {
+  opacity: 0.5;
+}

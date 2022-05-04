@@ -15,7 +15,8 @@
   </h2>
 </div>
 
-<% @questions.each do |question| %>
+<% @questions.select { |question| !question.hidden? || question.user == current_user }
+     .each do |question| %>
   <div class="mt-sm container">
     <%= render question %>
   </div>

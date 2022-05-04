@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: %i[update show destroy edit]
+  before_action :set_question_for_current_user, only: %i[update show destroy edit hide]
 
   def create
     question_params = params.require(:question).permit(:body, :user_id)
@@ -41,13 +41,20 @@ class QuestionsController < ApplicationController
   def edit
   end
 
+  def hide
+    @question.toggle!(:hidden)
+
+    redirect_to request.referrer
+  end
+
+
   private
 
   def ensure_current_user
     redirect_with_alert unless current_user.present?
   end
 
-  def set_question
+  def set_question_for_current_user
     @question = current_user.questions.find(params[:id])
   end
 end
