@@ -6,8 +6,15 @@ class User < ApplicationRecord
   validates :nickname, { uniqueness: {},
                          format: { with: /\A[a-zA-Z_1-9]+\z/ },
                          length: { maximum: 40 } }
+  before_save :downcase_nickname
 
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 
   validates :header_color, { format: { with: /\A#(?:\h{3}){1,2}\z/ } }
+
+  has_many :questions, dependent: :delete_all
+
+  def downcase_nickname
+    nickname.downcase!
+  end
 end
