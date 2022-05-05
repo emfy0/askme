@@ -1,5 +1,8 @@
 <div class="container">
-  <h2 class="title-lg mb">Вопрос <%= @question.id %></h2>
+  <h2 class="title-lg mb">
+    Вопрос #<%= @question.id %> для
+    <%= link_to add_at(@question.user.nickname), user_path(@question.user) %>
+  </h2>
 
   <%= render 'question', question: @question %>
 
