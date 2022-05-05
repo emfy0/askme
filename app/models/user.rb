@@ -3,10 +3,10 @@ class User < ApplicationRecord
 
   validates :email, :nickname, :name, presence: true
 
-  validates :nickname, { uniqueness: {},
-                         format: { with: /\A[a-zA-Z_1-9]+\z/ },
+  validates :nickname, { uniqueness: true,
+                         format: { with: /\A[a-z_1-9]+\z/ },
                          length: { maximum: 40 } }
-  before_save :downcase_nickname
+  before_validation :downcase_nickname
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 
