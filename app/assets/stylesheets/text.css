@@ -38,3 +38,7 @@ a, button {
 .opacity50 {
   opacity: 0.5;
 }
+
+.text-center {
+  text-align: center;
+}
