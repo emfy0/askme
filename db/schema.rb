@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_05_074738) do
+ActiveRecord::Schema.define(version: 2022_05_05_090824) do
 
   create_table "questions", force: :cascade do |t|
     t.text "body"
@@ -19,7 +19,8 @@ ActiveRecord::Schema.define(version: 2022_05_05_074738) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "answer"
     t.boolean "hidden", default: false, null: false
-    t.integer "from_user_id"
+    t.integer "author_id"
+    t.index ["author_id"], name: "index_questions_on_author_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -34,4 +35,5 @@ ActiveRecord::Schema.define(version: 2022_05_05_074738) do
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
   end
 
+  add_foreign_key "questions", "users", column: "author_id"
 end
