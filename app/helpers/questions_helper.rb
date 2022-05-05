@@ -12,4 +12,8 @@ module QuestionsHelper
       }
     end
   end
+
+  def availiable_questions(questions)
+    questions.select { |question| !question.hidden? || question.user == current_user }
+  end
 end

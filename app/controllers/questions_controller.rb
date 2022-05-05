@@ -47,7 +47,6 @@ class QuestionsController < ApplicationController
     redirect_to request.referrer
   end
 
-
   private
 
   def ensure_current_user

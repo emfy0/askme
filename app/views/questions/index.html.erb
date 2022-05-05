@@ -10,13 +10,12 @@
 
 <div class="container mt-sm">
   <h2 class="title-lg">
-    <%= @questions.count %>
-    <%= inclination(@questions.count, 'вопрос', 'вопроса', 'вопросов') %>
+    <%= availiable_questions(@questions).count %>
+    <%= inclination(availiable_questions(@questions).count, 'вопрос', 'вопроса', 'вопросов') %>
   </h2>
 </div>
 
-<% @questions.select { |question| !question.hidden? || question.user == current_user }
-     .each do |question| %>
+<% availiable_questions(@questions.order(created_at: :desc)).each do |question| %>
   <div class="mt-sm container">
     <%= render question %>
   </div>
