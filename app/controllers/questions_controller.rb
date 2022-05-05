@@ -3,9 +3,8 @@ class QuestionsController < ApplicationController
   before_action :ensure_current_user, only: %i[update destroy edit]
 
   def create
-    question_params = params.require(:question).permit(:body, :user_id, :author_id)
-
-    params[:question][:author_id] = current_user&.id
+    question_params = params.require(:question).permit(:body, :user_id)
+                            .merge(author_id: current_user&.id)
 
     @question = Question.create(question_params)
 
@@ -41,8 +40,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(user: @user)
   end
 
-  def edit
-  end
+  def edit; end
 
   def hide
     @question.toggle!(:hidden)
