@@ -42,8 +42,8 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @question = Question.new
-    @questions = Question.all
+    @questions = Question.where(hidden: false).order(created_at: :desc).last(10)
+    @users = User.order(created_at: :desc).last(2)
   end
 
   def new
@@ -56,7 +56,7 @@ class QuestionsController < ApplicationController
   def hide
     @question.toggle!(:hidden)
 
-    redirect_to request.referrer
+    redirect_to user_path(@question.user)
   end
 
   private

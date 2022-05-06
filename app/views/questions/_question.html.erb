@@ -1,22 +1,28 @@
 <% opacity = question.hidden ? 'opacity50' : '' %>
 <div class="mb-sm <%= opacity %>">
-  <%= simple_format(h(question.body)) %>
-</div>
-<div class="text-sm question-footer">
-  <div class="text-grey">
-    <%= l(question.created_at, format: :short) %>
-  </div>
-  <div>
-    <p>Вопрос от <%= author_link(question.author) %></p>
-  </div>
-  <% if current_user == question.user %>
-    <div>
-      <% edit_icon = (question.answer.present? ? 'pencil' : 'reply') %>
-      <%= button_to fa_icon(hide_button(question)[:fa_icon_class]), hide_question_path(question), method: :patch, title: hide_button(question)[:title], class: 'mr-sm' %>
-      <%= link_to fa_icon(edit_icon), edit_question_path(question),
-        title: 'Изменить вопрос', class: 'mr-sm' %>
-      <%= button_to fa_icon('trash-o'), question_path(question),
-        method: :delete, title: 'Удалить вопрос' %>
+  <div class="question-header text-sm mb-sm">
+    <div class="mb-sm text-grey">
+      <p>Вопрос <%= link_to "##{question.id}", question_path(question) %>
+        для <%= user_link(question.user) %> от <%= user_link(question.author)%>
+      </p>
     </div>
-  <% end %>
+  </div>
+  <%= simple_format(h(question.body)) %>
+  <div class="text-sm question-footer">
+    <div class="text-grey">
+      <%= l(question.created_at, format: :short) %>
+    </div>
+    <% if current_user == question.user %>
+      <div>
+        <% edit_icon = (question.answer.present? ? 'pencil' : 'reply') %>
+        <%= button_to fa_icon(hide_button(question)[:fa_icon_class]),
+                      hide_question_path(question),
+                      method: :patch, title: hide_button(question)[:title], class: 'mr-sm' %>
+        <%= link_to fa_icon(edit_icon), edit_question_path(question),
+        title: 'Изменить вопрос', class: 'mr-sm' %>
+        <%= button_to fa_icon('trash-o'), question_path(question),
+        method: :delete, title: 'Удалить вопрос' %>
+      </div>
+    <% end %>
+  </div>
 </div>

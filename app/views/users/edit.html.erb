@@ -1,6 +1,12 @@
 <div class="container">
   <h2 class="title mt-lg">Редактирование пользователя</h2>
 
+  <div class="mt">
+    <p><%= image_tag @user.gravatar_url, title: "@#{@user.nickname}", class: 'rounded' %></p>
+    <p class="text-sm mt">Чтобы добавить или поменять аватар — зарегистрируйтесь на
+      <%= link_to "Gravatar", 'https://gravatar.com' %> и загрузите фото</p>
+  </div>
+
   <% @user.errors.any? %>
     <% @user.errors.full_messages.each do |message| %>
       <p class="mb-sm text-red"><%= message %></p>

@@ -1,11 +1,24 @@
+<div class="container">
+  <h2 class="title-lg mb">
+    Недавно добавились
+  </h2>
+
+  <div class="users-box">
+    <% @users.each do |user| %>
+      <%= render partial: 'users/user_avatar', locals: {user: user} %>
+    <% end %>
+  </div>
+</div>
+
 <div class="container mt-sm">
   <h2 class="title-lg">
-    <%= availiable_questions(@questions).count %>
-    <%= inclination(availiable_questions(@questions).count, 'вопрос', 'вопроса', 'вопросов') %>
+    <%= inclination(@questions.count, 'Последний', 'Последние', 'Последние') %>
+    <%= @questions.count %>
+    <%= inclination(@questions.count, 'вопрос', 'вопроса', 'вопросов') %>
   </h2>
 </div>
 
-<% availiable_questions(@questions.order(created_at: :desc)).each do |question| %>
+<% @questions.each do |question| %>
   <div class="mt-sm container">
     <%= render question %>
   </div>

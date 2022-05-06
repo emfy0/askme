@@ -3,11 +3,11 @@ module UsersHelper
     "@#{str}"
   end
 
-  def author_link(author)
+  def user_link(author)
     if author.present?
-      link_to add_at(author.nickname), user_path(author), class: 'nickname mr-sm'
+      link_to add_at(author.nickname), user_path(author), class: 'nickname'
     else
-      content_tag(:span, '@аноним', class: 'mr-sm text-underline')
+      content_tag(:span, '@аноним', class: 'text-underline')
     end
   end
 end
