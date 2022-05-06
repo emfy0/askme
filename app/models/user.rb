@@ -17,6 +17,9 @@ class User < ApplicationRecord
   include Gravtastic
   gravtastic(secure: true, filetype: :png, size: 100, default: 'retro')
 
+  extend FriendlyId
+  friendly_id :nickname, use: :slugged
+
   private
 
   def downcase_nickname
