@@ -43,7 +43,7 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.where(hidden: false).order(created_at: :desc).last(10)
-    @users = User.order(created_at: :desc).last(2)
+    @users = User.order(created_at: :desc).last(10)
   end
 
   def new
