@@ -1,28 +1,31 @@
 class User < ApplicationRecord
-  has_secure_password
+  extend FriendlyId
+  include Gravtastic
+
+  before_validation :downcase_nickname_email
 
   validates :email, :nickname, :name, presence: true
 
   validates :nickname, { uniqueness: true,
                          format: { with: /\A[a-z_1-9]+\z/ },
                          length: { maximum: 40 } }
-  before_validation :downcase_nickname
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 
   validates :header_color, { format: { with: /\A#(?:\h{3}){1,2}\z/ } }
 
+  has_secure_password
+
   has_many :questions, dependent: :delete_all
 
-  include Gravtastic
   gravtastic(secure: true, filetype: :png, size: 100, default: 'retro')
 
-  extend FriendlyId
   friendly_id :nickname, use: :slugged
 
   private
 
-  def downcase_nickname
+  def downcase_nickname_email
     nickname&.downcase!
+    email&.downcase!
   end
 end
