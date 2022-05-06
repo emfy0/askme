@@ -4,19 +4,30 @@ class QuestionsController < ApplicationController
 
   def create
     question_params = params.require(:question).permit(:body, :user_id)
-                            .merge(author_id: current_user&.id)
 
-    @question = Question.create(question_params)
+    @question = Question.new(question_params)
 
-    redirect_to user_path(@question.user), notice: 'Новый вопрос создан!'
+    @question.author = current_user
+
+    if @question.save
+      redirect_to user_path(@question.user), notice: 'Новый вопрос создан!'
+    else
+      flash[:alert] = 'Вопрос оформлен неверно!'
+
+      redirect_to request.referrer
+    end
   end
 
   def update
     question_params = params.require(:question).permit(:body, :answer)
 
-    @question.update(question_params)
+    if @question.update(question_params)
+      redirect_to user_path(@question.user), notice: 'Сохранили вопрос!'
+    else
+      flash.now[:alert] = 'Вопрос оформлен неверно!'
 
-    redirect_to user_path(@question.user), notice: 'Сохранили вопрос!'
+      render :update
+    end
   end
 
   def destroy

@@ -14,7 +14,9 @@ class User < ApplicationRecord
 
   has_many :questions, dependent: :delete_all
 
+  private
+
   def downcase_nickname
-    nickname.downcase!
+    nickname&.downcase!
   end
 end
