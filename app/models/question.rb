@@ -8,7 +8,7 @@ class Question < ApplicationRecord
   has_many :hashtags, through: :hashtag_linkers
 
   after_commit :update_hashtags, on: %i[create update]
-  after_destroy :delete_unassociated_hashtags
+  after_destroy { Hashtag.delete_unassociated_hashtags }
 
   def update_hashtags
     hashtag_linkers.delete_all
@@ -23,7 +23,7 @@ class Question < ApplicationRecord
       end
     end
 
-    delete_unassociated_hashtags
+    Hashtag.delete_unassociated_hashtags
   end
 
   private
