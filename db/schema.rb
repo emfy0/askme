@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_06_184159) do
+ActiveRecord::Schema.define(version: 2022_05_13_210621) do
+
+  create_table "hashtag_linkers", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "hashtag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashtag_id"], name: "index_hashtag_linkers_on_hashtag_id"
+    t.index ["question_id"], name: "index_hashtag_linkers_on_question_id"
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "text", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["text"], name: "index_hashtags_on_text"
+  end
 
   create_table "questions", force: :cascade do |t|
     t.text "body"
