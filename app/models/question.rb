@@ -16,18 +16,18 @@ class Question < ApplicationRecord
     answer_hashtags = get_string_hashtags(answer)
 
     (body_hashtags + answer_hashtags).uniq.each do |h|
-      founded_hashtags = Hashtag.find_by(text: h)
+      founded_hashtag = Hashtag.find_by(text: h)
 
-      if founded_hashtags.nil?
-        hashtags.create(text: h.downcase)
+      if founded_hashtag.nil?
+        hashtags.create(text: h)
       else
-        hashtag_linkers.create(question_id: id, hashtag_id: founded_hashtags.id)
+        hashtag_linkers.create(hashtag_id: founded_hashtag.id)
       end
     end
   end
 
   def delete_unassociated_hashtags
-    Hashtag.left_joins(:hashtag_linkers).where(hashtag_linkers: { hashtag_id: nil }).delete_all
+    Hashtag.left_joins(:hashtag_linkers).where(hashtag_linkers: { question_id: nil }).delete_all
   end
 
   private
@@ -36,7 +36,7 @@ class Question < ApplicationRecord
     if str.nil?
       []
     else
-      str.scan(/#[\wА-я]+/).map(&:strip)
+      str.scan(/#[\wА-я]+/).map(&:strip).map(&:downcase)
     end
   end
 end
