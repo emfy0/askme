@@ -10,10 +10,22 @@
   <div class="mb-sm">
     <%= simple_format(h(question.body)) %>
   </div>
-  <% if question.hashtags.present? %> 
-  <div class="mb-sm text-light">
-    Найденные хештеги в вопросе: <%= links_for_hashtags(question.hashtags) %>
+
+  <% if question.answer.present? %>
+  <div class="question-header text-sm mb-sm">
+    <div class="text-grey">
+      <p>Ответ</p>
+    </div>
   </div>
+    <div class="mb-sm text-blue">
+      <%= simple_format(h(question.answer)) %>
+    </div>
+  <% end %>
+
+  <% if question.hashtags.present? %> 
+    <div class="mb-sm text-light">
+      Найденные хештеги в вопросе: <%= links_for_hashtags(question.hashtags) %>
+    </div>
   <% end %>
   <div class="text-sm question-footer">
     <div class="text-grey">
