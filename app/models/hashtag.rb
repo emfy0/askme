@@ -5,6 +5,6 @@ class Hashtag < ApplicationRecord
   validates :text, uniqueness: true
 
   def self.delete_unassociated_hashtags
-    Hashtag.left_joins(:hashtag_linkers).where(hashtag_linkers: { question_id: nil }).delete_all
+    self.left_joins(:hashtag_linkers).where(hashtag_linkers: { question_id: nil }).delete_all
   end
 end
