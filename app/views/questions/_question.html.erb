@@ -10,9 +10,11 @@
   <div class="mb-sm">
     <%= simple_format(h(question.body)) %>
   </div>
+  <% if question.hashtags.present? %> 
   <div class="mb-sm text-light">
     Найденные хештеги в вопросе: <%= links_for_hashtags(question.hashtags) %>
   </div>
+  <% end %>
   <div class="text-sm question-footer">
     <div class="text-grey">
       <%= l(question.created_at, format: :short) %>

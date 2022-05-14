@@ -10,10 +10,12 @@
   </div>
 </div>
 
-<div class="container mt-sm">
-  <h2 class="title-lg">Последние хештеги:</h2>
-  <%= links_for_hashtags(@hashtags) %>
-</div>
+<% if @hashtags.present? %> 
+  <div class="container mt-sm">
+    <h2 class="title-lg">Последние хештеги:</h2>
+    <%= links_for_hashtags(@hashtags) %>
+  </div>
+  <% end %>
 
 <div class="container mt-sm">
   <h2 class="title-lg">

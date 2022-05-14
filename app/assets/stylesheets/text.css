@@ -51,6 +51,10 @@ a, button {
   font-weight: bold;
 }
 
+.text-light {
+  font-weight: lighter;
+}
+
 .text-nounderline {
   text-decoration: none;
 }
