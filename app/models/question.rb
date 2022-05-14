@@ -20,7 +20,7 @@ class Question < ApplicationRecord
 
       if founded_hashtag.nil?
         hashtags.create(text: h)
-      else
+      elsif founded_hashtag.questions.include?(self) == false
         hashtag_linkers.create(hashtag_id: founded_hashtag.id)
       end
     end
