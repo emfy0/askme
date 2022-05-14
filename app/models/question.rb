@@ -19,7 +19,7 @@ class Question < ApplicationRecord
       founded_hashtags = Hashtag.find_by(text: h)
 
       if founded_hashtags.nil?
-        hashtags.create(text: h)
+        hashtags.create(text: h.downcase)
       else
         hashtag_linkers.create(question_id: id, hashtag_id: founded_hashtags.id)
       end
