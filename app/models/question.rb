@@ -28,10 +28,6 @@ class Question < ApplicationRecord
 
   private
 
-  def delete_unassociated_hashtags
-    Hashtag.left_joins(:hashtag_linkers).where(hashtag_linkers: { question_id: nil }).delete_all
-  end
-
   def question_hashtags
     body_hashtags = get_string_hashtags(body)
     answer_hashtags = get_string_hashtags(answer)
