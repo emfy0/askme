@@ -44,6 +44,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.where(hidden: false).order(created_at: :desc).first(10)
     @users = User.order(created_at: :desc).last(10)
+    @hashtags = Hashtag.order(created_at: :desc).first(10)
   end
 
   def new
@@ -60,10 +61,6 @@ class QuestionsController < ApplicationController
   end
 
   private
-
-  def find_hashtags
-    @question.body 
-  end
 
   def ensure_current_user
     redirect_with_alert unless current_user.present?

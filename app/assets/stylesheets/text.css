@@ -46,3 +46,11 @@ a, button {
 .text-underline {
   text-decoration: underline;
 }
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-nounderline {
+  text-decoration: none;
+}

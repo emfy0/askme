@@ -10,8 +10,8 @@
   <div class="mb-sm">
     <%= simple_format(h(question.body)) %>
   </div>
-  <div class="mb-sm">
-    Найденные хештеги в вопросе: <%= question.hashtags.map(&:text).join(', ') %>
+  <div class="mb-sm text-light">
+    Найденные хештеги в вопросе: <%= links_for_hashtags(question.hashtags) %>
   </div>
   <div class="text-sm question-footer">
     <div class="text-grey">

@@ -11,6 +11,11 @@
 </div>
 
 <div class="container mt-sm">
+  <h2 class="title-lg">Последние хештеги:</h2>
+  <%= links_for_hashtags(@hashtags) %>
+</div>
+
+<div class="container mt-sm">
   <h2 class="title-lg">
     <%= inclination(@questions.count, 'Последний', 'Последние', 'Последние') %>
     <%= @questions.count %>
