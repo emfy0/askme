@@ -7,30 +7,37 @@ class Question < ApplicationRecord
   has_many :hashtag_linkers, dependent: :destroy
   has_many :hashtags, through: :hashtag_linkers
 
-  after_commit :set_hashtags, on: %i[create update]
+  after_commit :update_hashtags, on: %i[create update]
   after_destroy :delete_unassociated_hashtags
 
-  def set_hashtags
-    body_hashtags = get_string_hashtags(body)
+  def update_hashtags
+    hashtag_linkers.delete_all
 
-    answer_hashtags = get_string_hashtags(answer)
-
-    (body_hashtags + answer_hashtags).uniq.each do |h|
+    question_hashtags.each do |h|
       founded_hashtag = Hashtag.find_by(text: h)
 
       if founded_hashtag.nil?
         hashtags.create(text: h)
-      elsif founded_hashtag.questions.include?(self) == false
+      else
         hashtag_linkers.create(hashtag_id: founded_hashtag.id)
       end
     end
+
+    delete_unassociated_hashtags
   end
+
+  private
 
   def delete_unassociated_hashtags
     Hashtag.left_joins(:hashtag_linkers).where(hashtag_linkers: { question_id: nil }).delete_all
   end
 
-  private
+  def question_hashtags
+    body_hashtags = get_string_hashtags(body)
+    answer_hashtags = get_string_hashtags(answer)
+
+    (body_hashtags + answer_hashtags).uniq
+  end
 
   def get_string_hashtags(str)
     if str.nil?
