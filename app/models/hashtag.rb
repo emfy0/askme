@@ -1,7 +1,7 @@
 class Hashtag < ApplicationRecord
   extend FriendlyId
 
-  has_many :hashtag_linkers
+  has_many :hashtag_linkers, dependent: :destroy
   has_many :questions, through: :hashtag_linkers
 
   validates :text, uniqueness: true

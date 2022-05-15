@@ -9,12 +9,11 @@ class Question < ApplicationRecord
                      length: { maximum: 280 } }
 
   after_save_commit :update_hashtags
-  after_destroy { Hashtag.delete_unassociated_hashtags }
 
   def update_hashtags
     self.hashtags =
       question_hashtags
-      .map { |tag| Hashtag.find_or_create_by(text: tag.delete('#')) }
+      .map { |tag| Hashtag.create_or_find_by(text: tag.delete('#')) }
   end
 
   private
@@ -30,7 +29,7 @@ class Question < ApplicationRecord
     if str.nil?
       []
     else
-      str.scan(/#[\wА-я]+/).map(&:strip).map(&:downcase)
+      str.scan(/#[[:word:]-]+/).map(&:downcase)
     end
   end
 end
