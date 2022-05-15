@@ -12,8 +12,7 @@ class Question < ApplicationRecord
 
   def update_hashtags
     self.hashtags =
-      question_hashtags
-      .map { |tag| Hashtag.create_or_find_by(text: tag.delete('#')) }
+      question_hashtags.map { |tag| Hashtag.find_or_create_by(text: tag.delete('#')) }
   end
 
   private
