@@ -1,29 +1,20 @@
 class Question < ApplicationRecord
-  validates :body, { presence: true,
-                     length: { maximum: 280 } }
   belongs_to :user
   belongs_to :author, class_name: :User, optional: true
 
   has_many :hashtag_linkers, dependent: :destroy
   has_many :hashtags, through: :hashtag_linkers
 
-  after_commit :update_hashtags, on: %i[create update]
+  validates :body, { presence: true,
+                     length: { maximum: 280 } }
+
+  after_save_commit :update_hashtags
   after_destroy { Hashtag.delete_unassociated_hashtags }
 
   def update_hashtags
-    hashtag_linkers.delete_all
-
-    question_hashtags.each do |h|
-      founded_hashtag = Hashtag.find_by(text: h)
-
-      if founded_hashtag.nil?
-        hashtags.create(text: h)
-      else
-        hashtag_linkers.create(hashtag_id: founded_hashtag.id)
-      end
-    end
-
-    Hashtag.delete_unassociated_hashtags
+    self.hashtags =
+      question_hashtags
+      .map { |tag| Hashtag.find_or_create_by(text: tag.delete('#')) }
   end
 
   private
