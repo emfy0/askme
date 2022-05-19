@@ -44,6 +44,10 @@ class UsersController < ApplicationController
 
   def show
     @questions = @user.questions
+                      .includes([:user])
+                      .includes([:author])
+                      .includes([:hashtag_linkers])
+                      .includes([:hashtags])
     @question = Question.new(user: @user)
   end
 

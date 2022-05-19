@@ -12,23 +12,17 @@ class Question < ApplicationRecord
 
   def update_hashtags
     self.hashtags =
-      question_hashtags.map { |tag| Hashtag.find_or_create_by(text: tag.delete('#')) }
+      question_hashtags.map { |tag| Hashtag.create_or_find_by(text: tag.delete('#')) }
   end
 
   private
 
   def question_hashtags
-    body_hashtags = get_string_hashtags(body)
-    answer_hashtags = get_string_hashtags(answer)
-
-    (body_hashtags + answer_hashtags).uniq
+    question_text = body + (answer || '')
+    get_string_hashtags(question_text.downcase).uniq
   end
 
   def get_string_hashtags(str)
-    if str.nil?
-      []
-    else
-      str.scan(/#[[:word:]-]+/).map(&:downcase)
-    end
+    str.scan(/#[[:word:]-]+/)
   end
 end
