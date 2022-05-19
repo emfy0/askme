@@ -5,7 +5,6 @@ ruby '3.0.2'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', require: false
-gem 'bullet'
 gem 'font-awesome-rails'
 gem 'friendly_id', '~> 5.4.0'
 gem 'importmap-rails'
@@ -23,6 +22,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'bullet'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'sqlite3', '~> 1.4'
 end

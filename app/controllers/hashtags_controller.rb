@@ -6,6 +6,5 @@ class HashtagsController < ApplicationController
                          .includes([:author])
                          .includes([:hashtag_linkers])
                          .includes([:hashtags])
-
   end
 end
