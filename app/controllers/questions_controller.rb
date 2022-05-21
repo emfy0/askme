@@ -42,10 +42,7 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @questions = Question.includes([:user])
-                         .includes([:author])
-                         .includes([:hashtag_linkers])
-                         .includes([:hashtags])
+    @questions = Question.includes(%i[user author hashtag_linkers hashtags])
                          .where(hidden: false)
                          .order(created_at: :desc)
                          .first(10)

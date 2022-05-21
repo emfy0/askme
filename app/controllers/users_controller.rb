@@ -21,8 +21,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)
@@ -43,11 +42,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @questions = @user.questions
-                      .includes([:user])
-                      .includes([:author])
-                      .includes([:hashtag_linkers])
-                      .includes([:hashtags])
+    @questions = @user.questions.includes(%i[user author hashtag_linkers hashtags])
     @question = Question.new(user: @user)
   end
 

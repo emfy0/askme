@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  HASHTAG_EXP = /#[[:word:]-]+/
+
   belongs_to :user
   belongs_to :author, class_name: :User, optional: true
 
@@ -18,11 +20,11 @@ class Question < ApplicationRecord
   private
 
   def question_hashtags
-    question_text = body + (answer || '')
+    question_text = "#{body} #{answer}"
     get_string_hashtags(question_text.downcase).uniq
   end
 
   def get_string_hashtags(str)
-    str.scan(/#[[:word:]-]+/)
+    str.scan(HASHTAG_EXP)
   end
 end
