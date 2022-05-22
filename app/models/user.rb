@@ -22,6 +22,8 @@ class User < ApplicationRecord
 
   friendly_id :nickname, use: :slugged
 
+  scope :sort_by_reg_date, -> { order(created_at: :desc) }
+
   private
 
   def downcase_nickname_email

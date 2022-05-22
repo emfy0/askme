@@ -12,6 +12,8 @@ class Question < ApplicationRecord
 
   after_save_commit :update_hashtags
 
+  scope :sort_by_date, -> { order(created_at: :desc) }
+
   def update_hashtags
     self.hashtags =
       question_hashtags.map { |tag| Hashtag.create_or_find_by(text: tag.delete('#')) }

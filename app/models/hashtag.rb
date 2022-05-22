@@ -6,12 +6,7 @@ class Hashtag < ApplicationRecord
 
   validates :text, presence: true
 
-  scope :with_questions, lambda {
-                           left_joins(:hashtag_linkers)
-                             .where.not(hashtag_linkers: { question_id: nil })
-                             .distinct
-                             .order(created_at: :desc)
-                         }
+  scope :with_questions, -> { where_exists(:questions) }
 
   friendly_id :text, use: :slugged
 end

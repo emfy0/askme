@@ -14,6 +14,7 @@ gem 'rails', '~> 7.0.1'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
+gem 'where_exists'
 
 gem 'gravtastic'
 
