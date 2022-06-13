@@ -1,24 +1,33 @@
-# README
+# ASKME
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Web app where anyone can ask questions and answer them. Questions and answers has hashtags. 
+Users can change their header color.
 
-Things you may want to cover:
+## Deployment
+https://ask-generator.herokuapp.com/
 
-* Ruby version
+## Technological features
 
-* System dependencies
+__Rails 7__
 
-* Configuration
+Selfmade authentication
 
-* Database creation
+## Launching
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Clone repo.
+1. Use bundler.
+```
+bundle install
+```
+3. Create database.
+```
+bundle exec rails db:create
+```
+4. Run database migrations.
+```
+bundle exec rails db:migrate
+```
+5. Start rails server.
+```
+bundle exec rails s
+```
